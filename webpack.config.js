@@ -8,6 +8,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         library: 'StripeGenerator',
         libraryTarget: 'umd',
+        libraryExport: 'default',
     },
     module: {
         rules: [

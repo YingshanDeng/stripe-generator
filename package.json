@@ -6,6 +6,8 @@
     "scripts": {
         "dev": "webpack --config webpack.config.js",
         "commit": "git-cz",
+        "eslint": "eslint 'src/**/*.{js,ts,tsx}'",
+        "eslint-fix": "eslint --fix 'src/**/*.{js,ts,tsx}'",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -24,8 +26,12 @@
     },
     "homepage": "https://github.com/YingshanDeng/stripe-generator#readme",
     "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^3.4.0",
         "commitizen": "^4.1.2",
         "cz-conventional-changelog": "^3.2.0",
+        "eslint": "^7.3.1",
+        "eslint-config-airbnb-typescript": "^8.0.2",
+        "eslint-plugin-import": "^2.22.0",
         "ts-loader": "^7.0.5",
         "typescript": "^3.9.5",
         "webpack": "^4.43.0",
