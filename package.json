@@ -1,0 +1,39 @@
+{
+    "name": "stripe-generator",
+    "version": "0.0.1",
+    "description": "Generates a tiling, angled, stripe pattern. The pattern will always tiled continuously!",
+    "main": "index.js",
+    "scripts": {
+        "dev": "webpack --config webpack.config.js",
+        "commit": "git-cz",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/YingshanDeng/stripe-generator.git"
+    },
+    "keywords": [
+        "stripe-patten",
+        "stripe-generator",
+        "canvas"
+    ],
+    "author": "Yingshandeng <yingshandeng@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/YingshanDeng/stripe-generator/issues"
+    },
+    "homepage": "https://github.com/YingshanDeng/stripe-generator#readme",
+    "devDependencies": {
+        "commitizen": "^4.1.2",
+        "cz-conventional-changelog": "^3.2.0",
+        "ts-loader": "^7.0.5",
+        "typescript": "^3.9.5",
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.12"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
+    }
+}
