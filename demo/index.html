@@ -4,10 +4,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="../dist/index.dist.js"></script>
+    <style>
+        #cvs {
+            width: 500px;
+            height: 500px;
+        }
+
+    </style>
 </head>
 <body>
+    <canvas id="cvs" width="1000" height="1000"></canvas>
     <script>
-        console.log(StripeGenerator.test(1));
+        const sg = new StripeGenerator();
+        const pCvs = sg.create({
+            stripe: [{
+                size: 5,
+                color: 'red',
+            }, {
+                size: 5,
+                color: '#278BE8',
+            }],
+            space: {
+                size: 15,
+                color: 'white',
+            },
+            orientation: 60,
+        });
+
+        const cvs = document.getElementById('cvs')
+        const ctx = cvs.getContext('2d');
+        const pattern =ctx.createPattern(pCvs, 'repeat');
+        ctx.fillStyle = pattern;
+        ctx.fillRect(0, 0, 1000, 1000);
+
+        // todo ...
+        var download = function(){
+            var link = document.createElement('a');
+            link.download = 'filename.png';
+            link.href = cvs.toDataURL()
+            link.click();
+        }
     </script>
 </body>
 </html>

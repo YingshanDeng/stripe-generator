@@ -6,5 +6,6 @@ module.exports = {
     rules: {
         "indent": [1, 4],
         "@typescript-eslint/indent": [1, 4],
+        "no-mixed-operators": "off",
     },
 };
