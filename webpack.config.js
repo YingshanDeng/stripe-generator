@@ -7,7 +7,7 @@ module.exports = {
         filename: 'index.dist.js',
         path: path.resolve(__dirname, 'dist'),
         library: 'StripeGenerator',
-        libraryTarget: 'umd',
+        // libraryTarget: 'umd',
         libraryExport: 'default',
     },
     module: {

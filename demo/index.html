@@ -15,8 +15,10 @@
 <body>
     <canvas id="cvs" width="1000" height="1000"></canvas>
     <script>
-        const sg = new StripeGenerator();
-        const pCvs = sg.create({
+        const cvs = document.getElementById('cvs')
+        const ctx = cvs.getContext('2d');
+
+        const pCvs = StripeGenerator({
             stripe: [{
                 size: 5,
                 color: 'red',
@@ -25,14 +27,11 @@
                 color: '#278BE8',
             }],
             space: {
-                size: 15,
+                size: 25,
                 color: 'white',
             },
             orientation: 60,
         });
-
-        const cvs = document.getElementById('cvs')
-        const ctx = cvs.getContext('2d');
         const pattern =ctx.createPattern(pCvs, 'repeat');
         ctx.fillStyle = pattern;
         ctx.fillRect(0, 0, 1000, 1000);
