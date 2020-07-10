@@ -1,21 +1,26 @@
 const path = require('path');
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     entry: path.resolve(__dirname, './src/index.ts'),
     output: {
         filename: 'index.dist.js',
         path: path.resolve(__dirname, 'dist'),
         library: 'StripeGenerator',
-        // libraryTarget: 'umd',
+        libraryTarget: 'umd',
         libraryExport: 'default',
+        umdNamedDefine: true,
+    },
+    devtool: 'cheap-module-source-map',
+    optimization: {
+        minimize: false
     },
     module: {
         rules: [
             {
                 test: /\.ts$/,
                 exclude: [/node_modules/],
-                use: 'ts-loader'
+                use: ['babel-loader', 'ts-loader']
             }
         ],
     },

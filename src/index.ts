@@ -76,6 +76,7 @@ function renderPatternCanvas(
     patternSize: ISize,
     renderRect: IRect,
     theta: number,
+    needFlip: boolean = false,
 ): HTMLCanvasElement | null {
     const patternCvs = document.createElement('canvas');
     const patternCtx = patternCvs.getContext('2d');
@@ -89,26 +90,43 @@ function renderPatternCanvas(
     patternCvs.width = patternSize.width;
     patternCvs.height = patternSize.height;
 
+    patternCtx!.save();
+
     patternCtx!.translate(renderRect.x, renderRect.y);
     patternCtx!.rotate((theta * Math.PI) / 180);
     patternCtx!.fillStyle = pattern;
     patternCtx!.fillRect(0, 0, renderRect.width, renderRect.height);
 
+    patternCtx!.restore();
+
+    if (needFlip) {
+        // 水平翻转
+        patternCtx!.scale(-1, 1);
+        patternCtx!.drawImage(patternCvs, -patternCvs.width, 0);
+    }
+
     return patternCvs;
 }
 
 export default function create(config: IGenteratorConfig): HTMLCanvasElement | null {
-    const theta: number = 90 - config.orientation;
+    const orientation = config.orientation > 90 ? 180 - config.orientation : config.orientation;
+    const needFlip = config.orientation > 90;
+    const theta: number = Math.abs(90 - orientation);
     const stripeWidth: number = config.stripe.reduce(
         (acc: number, curr: IStripeOption) => acc + curr.size + config.space.size,
         0,
     );
 
     // 1、首先，计算出条纹纹理图的大小
-    const patternSize: ISize = calcPatternSize(stripeWidth, theta);
+    let patternSize: ISize;
+    if (orientation === 0 || orientation === 90) {
+        patternSize = { width: stripeWidth, height: stripeWidth };
+    } else {
+        patternSize = calcPatternSize(stripeWidth, theta);
+    }
 
     // 2、其次，计算出绘制这个纹理图的位置和大小(由于进行了角度旋转)
-    const renderRect: IRect = calcRenderSize(patternSize, config.orientation);
+    const renderRect: IRect = calcRenderSize(patternSize, orientation);
 
     // 3、生成初始纹理
     const bPatternCvs: HTMLCanvasElement | null = initBasicPattern(stripeWidth, config);
@@ -117,5 +135,16 @@ export default function create(config: IGenteratorConfig): HTMLCanvasElement | n
     }
 
     // 4、生成最终纹理
-    return renderPatternCanvas(bPatternCvs, patternSize, renderRect, theta);
+    const rPattern: HTMLCanvasElement | null = renderPatternCanvas(
+        bPatternCvs,
+        patternSize,
+        renderRect,
+        theta,
+        needFlip,
+    );
+    if (!rPattern) {
+        return null;
+    }
+
+    return rPattern;
 }

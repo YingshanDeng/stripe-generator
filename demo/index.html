@@ -30,8 +30,11 @@
                 size: 25,
                 color: 'white',
             },
-            orientation: 60,
+            orientation: 120,
         });
+
+        document.body.append(pCvs);
+
         const pattern =ctx.createPattern(pCvs, 'repeat');
         ctx.fillStyle = pattern;
         ctx.fillRect(0, 0, 1000, 1000);

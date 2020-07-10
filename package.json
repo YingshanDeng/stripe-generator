@@ -28,9 +28,13 @@
     },
     "homepage": "https://github.com/YingshanDeng/stripe-generator#readme",
     "devDependencies": {
+        "@babel/core": "^7.10.4",
+        "@babel/plugin-transform-runtime": "^7.10.4",
+        "@babel/preset-env": "^7.10.4",
         "@commitlint/cli": "^9.0.1",
         "@commitlint/config-conventional": "^9.0.1",
         "@typescript-eslint/eslint-plugin": "^3.4.0",
+        "babel-loader": "^8.1.0",
         "commitizen": "^4.1.2",
         "cz-conventional-changelog": "^3.2.0",
         "eslint": "^7.3.1",
