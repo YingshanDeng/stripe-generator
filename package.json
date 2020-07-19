@@ -4,7 +4,8 @@
     "description": "Generates a tiling, angled, stripe pattern. The pattern will always tiled continuously!",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack --config webpack.config.js",
+        "dev": "cross-env NODE_ENV=development rollup -c rollup.config.js --watch",
+        "dist": "cross-env NODE_ENV=production rollup -c rollup.config.js ",
         "commit": "git-cz",
         "ts-check": "tsc --noEmit",
         "eslint": "eslint 'src/**/*.{js,ts}'",
@@ -28,25 +29,25 @@
     },
     "homepage": "https://github.com/YingshanDeng/stripe-generator#readme",
     "devDependencies": {
-        "@babel/core": "^7.10.4",
-        "@babel/plugin-transform-runtime": "^7.10.4",
-        "@babel/preset-env": "^7.10.4",
         "@commitlint/cli": "^9.0.1",
         "@commitlint/config-conventional": "^9.0.1",
+        "@rollup/plugin-typescript": "^5.0.2",
         "@typescript-eslint/eslint-plugin": "^3.4.0",
-        "babel-loader": "^8.1.0",
         "commitizen": "^4.1.2",
+        "cross-env": "^7.0.2",
         "cz-conventional-changelog": "^3.2.0",
         "eslint": "^7.3.1",
         "eslint-config-airbnb-typescript": "^8.0.2",
         "eslint-plugin-import": "^2.22.0",
         "husky": "^4.2.5",
         "lint-staged": "^10.2.11",
+        "lodash.camelcase": "^4.3.0",
         "prettier": "^2.0.5",
-        "ts-loader": "^7.0.5",
-        "typescript": "^3.9.5",
-        "webpack": "^4.43.0",
-        "webpack-cli": "^3.3.12"
+        "rollup": "^2.22.1",
+        "rollup-plugin-serve": "^1.0.2",
+        "rollup-plugin-uglify": "^6.0.4",
+        "tslib": "^2.0.0",
+        "typescript": "^3.9.5"
     },
     "lint-staged": {
         "src/**/*.{js,jsx,ts,tsx,json,css,less}": [

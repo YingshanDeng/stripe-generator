@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="../dist/index.dist.js"></script>
+    <script src="../dist/stripe-generator.js"></script>
     <style>
         #cvs {
             width: 500px;
@@ -18,7 +18,7 @@
         const cvs = document.getElementById('cvs')
         const ctx = cvs.getContext('2d');
 
-        const pCvs = StripeGenerator({
+        const pCvs = stripeGenerator({
             stripe: [{
                 size: 5,
                 color: 'red',
