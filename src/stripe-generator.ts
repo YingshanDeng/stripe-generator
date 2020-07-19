@@ -109,6 +109,9 @@ function renderPatternCanvas(
 }
 
 export default function create(config: IGenteratorConfig): HTMLCanvasElement | null {
+    if (config.orientation < 0 || config.orientation > 180) {
+        throw new Error('Error: orientation should be 0°~180° !!!');
+    }
     const orientation = config.orientation > 90 ? 180 - config.orientation : config.orientation;
     const needFlip = config.orientation > 90;
     const theta: number = Math.abs(90 - orientation);

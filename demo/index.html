@@ -2,48 +2,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>条纹纹理生成器</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
     <script src="../dist/stripe-generator.js"></script>
     <style>
-        #cvs {
-            width: 500px;
-            height: 500px;
+        #generate-button {
+            display: block;
+            margin-top: 20px;
         }
-
+        #download-button {
+           display: none;
+           margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-    <canvas id="cvs" width="1000" height="1000"></canvas>
-    <script>
-        const cvs = document.getElementById('cvs')
-        const ctx = cvs.getContext('2d');
+    <h2>条纹纹理生成器：配置</h2>
+    <textarea id="config-textarea" cols="50" rows="20"></textarea>
+    <button id="generate-button" onclick="generate()">生成</button>
+    <h2>条纹纹理生成器：结果</h2>
+    <div class="stripe-resule">
+        <canvas id="stripe-canvas"></canvas>
+        <button id="download-button" onclick="download()">下载</button>
+    </div>
+    <h2>条纹纹理生成器：预览</h2>
+    <canvas id="preview-canvas" width="1000" height="1000" style="width: 500px; height: 500px;"></canvas>
 
-        const pCvs = stripeGenerator({
+    <script>
+        const txtArea = document.getElementById("config-textarea");
+        const gButton = document.getElementById('generate-button');
+        const dButton = document.getElementById('download-button');
+        const stripeCvs = document.getElementById('stripe-canvas');
+        const stripeCtx = stripeCvs.getContext('2d');
+        const previewCvs = document.getElementById('preview-canvas');
+        const previewCtx = previewCvs.getContext('2d');
+        const defaultConfig = {
             stripe: [{
-                size: 5,
-                color: 'red',
+                size: 10,
+                color: '#ff0000',
             }, {
-                size: 5,
-                color: '#278BE8',
+                size: 10,
+                color: '#278be8',
             }],
             space: {
-                size: 25,
-                color: 'white',
+                size: 10,
+                color: '#fff',
             },
             orientation: 120,
-        });
+        };
+        txtArea.value = JSON.stringify(defaultConfig, undefined, 2);
+        txtArea.oninput = function() {
+            dButton.style.display = 'none';
+            stripeCtx.clearRect(0, 0, stripeCvs.width, stripeCvs.height);
+            previewCtx.clearRect(0, 0, previewCvs.width, previewCvs.height);
+        }
+        let patternCvs;
+        function generate() {
+            try {
+                const config = JSON.parse(txtArea.value);
+                patternCvs = stripeGenerator(config);
 
-        document.body.append(pCvs);
+                stripeCvs.width = patternCvs.width;
+                stripeCvs.height = patternCvs.height;
+                stripeCvs.style.width = patternCvs.width/2 + 'px';
+                stripeCvs.style.height = patternCvs.height/2 + 'px';
+                stripeCtx.drawImage(patternCvs, 0, 0);
 
-        const pattern =ctx.createPattern(pCvs, 'repeat');
-        ctx.fillStyle = pattern;
-        ctx.fillRect(0, 0, 1000, 1000);
+                const pattern = previewCtx.createPattern(patternCvs, 'repeat');
+                previewCtx.fillStyle = pattern;
+                previewCtx.fillRect(0, 0, 1000, 1000);
 
-        // todo ...
-        var download = function(){
+                dButton.style.display = 'block';
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        function download(){
             var link = document.createElement('a');
-            link.download = 'filename.png';
-            link.href = cvs.toDataURL()
+            link.download = 'stripe.png';
+            link.href = patternCvs.toDataURL()
             link.click();
         }
     </script>
