@@ -26,8 +26,12 @@ const stripeCanvas = stripeGenerator({
 })
 ```
 
-## DEV
+## Dev
 ```sh
 npm i
 npm run dev
 ```
+
+## Logic
+![image.png](https://i.loli.net/2020/07/12/2Jit1BnmQsAeDSE.png)
+![image.png](https://i.loli.net/2020/07/12/NsZYW2G58uKxcvT.png)
